@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Sora', sans-serif;
+}
+body{
+    height: 100vh;
+    background:  linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url("images/background.jpg");
+    background-size: cover; 
+}
+.wrapper{
+    height: 100vh;
+}
+.myColor{
+    background-image: radial-gradient(circle farthest-corner at -3.1% -4.3%, rgba(233, 143, 151, 1) 0%,  rgba(18, 123, 140, 1) 90%);
+}
+.myShadow{
+    box-shadow: 0 5px 10px #111;
+}
+.myBtn{
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+}
+.myBtn:hover{
+    background-image: linear-gradient(to right, rgba(233, 143, 151, 1) 0%, rgba(20, 123, 140, 1) 100%);
+}
+.myHr{
+    height: 2px;
+    border-radius: 100px;
+}
+.myLinkBtn{
+    border-radius: 100px;
+    width: 50%;
+    border: 2px solid white;
+}
+
+@media (max-width: 720px){
+    .wrapper{
+        margin: 2px;
+    }
+}

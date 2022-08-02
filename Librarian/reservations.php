@@ -2,14 +2,14 @@
     $title = 'Librarian | Reservations';
     $page = 'reservations';
     
-    include 'repeatable/head.php';
-    include 'repeatable/pre-loader.php';
-    include 'repeatable/navigation-bar.php'
+    include '../repeatable/librarian/head.php';
+    include '../repeatable/pre-loader.php';
+    include '../repeatable/librarian/navigation-bar.php'
 ?>
 
     <div class="content-wrapper">
 
-        <?php include 'repeatable/content-header.php'; ?>
+        <?php include '../repeatable/content-header.php'; ?>
 
         <section class="content">
             <div class="container-fluid">
@@ -18,6 +18,6 @@
         </section>
     </div>
 
-<?php include 'repeatable/footer.php' ?>
+<?php include '../repeatable/librarian/scripts.php' ?>
 
     

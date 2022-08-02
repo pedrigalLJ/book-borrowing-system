@@ -22,7 +22,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="logout.php" class="nav-link">
                 <i class="fas fa-right-from-bracket"></i>
                 <small>Sign Out</small>
             </a>

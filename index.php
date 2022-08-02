@@ -1,3 +1,9 @@
+<?php 
+    session_start();
+    if(isset($_SESSION['user'])){
+        header('location: Borrower/home.php');
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,21 +24,25 @@
                         <h1 class="text-center font-weight-bold text-info">Sign In Account</h1>
                         <hr class="my-3">
                         <form action="#" method="post" class="px-3" id="login-form">
+                            <div id="login-error-alert"></div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fas fa-envelope"></i></div>
                                 </div>
-                                <input type="email" class="form-control" placeholder="Email">
+                                <input type="email" class="form-control" name="login-email" placeholder="Email" required value="<?php if(isset($_COOKIE['email'])) { echo $_COOKIE['email']; } ?>">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fas fa-key"></i></div>
                                 </div>
-                                <input type="password" class="form-control" placeholder="Password">
+                                <input type="password" class="form-control" name="login-password" placeholder="Password" required value="<?php if(isset($_COOKIE['password'])) { echo $_COOKIE['password']; } ?>">
                             </div>
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox float-left">
-                                    <input type="checkbox" name="rem" class="custom-control-input" id="customCheck">
+                                    <input type="checkbox" name="rem" class="custom-control-input" id="customCheck" 
+                                    <?php if(isset($_COOKIE['email'])){
+                                        ?> checked <?php
+                                    } ?>>
                                     <label for="customCheck" class="custom-control-label">Remember me</label>
                                 </div>
                                 <div class="forgot float-right">
@@ -207,7 +217,29 @@
                     }
                 }
             });
-        })
+
+            //Login ajax request
+            $("#login-btn").click(function(e){
+                if($("#login-form")[0].checkValidity()){
+                    e.preventDefault();
+                    $("#login-btn").val('Please Wait...');
+                    $.ajax({
+                        url: 'action.php',
+                        method: 'post',
+                        data: $("#login-form").serialize()+'&action=login',
+                        success: function(response){
+                            $("#login-btn").val('Sign In');
+                            if(response === 'login'){
+                                window.location = 'Borrower/home.php';
+                                alert("Login successfully!");
+                            }else{
+                                $("#login-error-alert").html(response);
+                            }
+                        }
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>

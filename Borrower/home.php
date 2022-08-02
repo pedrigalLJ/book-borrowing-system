@@ -1,6 +1,7 @@
 <?php
-	session_start();
-	echo $_SESSION['user'];
+	require_once '../session.php';
+	// echo '<pre>';
+	// print_r($data);
 	
 	$page = 'Home';
 	

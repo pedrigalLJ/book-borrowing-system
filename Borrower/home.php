@@ -1,4 +1,7 @@
 <?php
+	session_start();
+	echo $_SESSION['user'];
+	
 	$page = 'Home';
 	
 	include '../repeatable/borrower/head.php';

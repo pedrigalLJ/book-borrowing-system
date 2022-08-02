@@ -78,29 +78,33 @@
                         <h1 class="text-center font-weight-bold text-info">Create Account</h1>
                         <hr class="my-3">
                         <form action="#" method="post" class="px-3" id="register-form">
+                            <div id="reg-error-alert"></div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fas fa-user-alt"></i></div>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Full name">
+                                <input type="text" class="form-control" name="reg-fullname" placeholder="Full name" required>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fas fa-envelope"></i></div>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Email">
+                                <input type="email" class="form-control" name="reg-email" placeholder="Email" required>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fas fa-key"></i></div>
                                 </div>
-                                <input type="password" class="form-control" id="reg-password" placeholder="Password" minlength="6">
+                                <input type="password" class="form-control" id="reg-password" placeholder="Password" minlength="6" required>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fas fa-key"></i></div>
                                 </div>
-                                <input type="password" class="form-control" name="confirm-password" id="reg-confirm-password" placeholder="Confirm Password" minlength="6">
+                                <input type="password" class="form-control" name="reg-confirm-password" id="reg-confirm-password" placeholder="Confirm Password" minlength="6" required>
+                            </div>
+                            <div class="form-group">
+                                <div id="passwordError" class="text-danger font-weight-bold"></div>
                             </div>
                             <div class="clearfix"></div>
                             <div class="form-group">
@@ -174,6 +178,34 @@
             $("#back-link").click(function(){
                 $("#reset-box").hide();
                 $("#login-box").show();
+            });
+
+            //Register Ajax Request
+            $("#register-btn").click(function(e){
+                if($("#register-form")[0].checkValidity()){
+                    e.preventDefault(); // to prevent the page to refresh
+                    $("#register-btn").val('Please Wait...');
+                    if($("#reg-password").val() != $("#reg-confirm-password").val()){
+                        $("#passwordError").text('* Password did not matched!');
+                        $("#register-btn").val('Sign Up');
+                    }else{
+                        $("#passwordError").text('');
+                        $.ajax({
+                            url: 'action.php',
+                            method: 'post',
+                            data: $("#register-form").serialize()+'&action=register',
+                            success: function(response){
+                                $("#register-btn").val('Sign Up');
+                                if(response === 'register'){
+                                    window.location = 'index.php';
+                                    alert("Registered successfully! Try to sign in!");
+                                }else{
+                                    $("#reg-error-alert").html(response);
+                                }
+                            }
+                        })
+                    }
+                }
             });
         })
     </script>

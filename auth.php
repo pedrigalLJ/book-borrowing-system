@@ -40,5 +40,34 @@
 
             return $row;
         }
+
+        //Forgot password
+        public function reset($token, $email){
+            $sql = 'UPDATE users SET token = :token, token_expire = DATE_ADD(NOW(), INTERVAL 10 MINUTE) WHERE email = :email';
+            $stmt = $this->con->prepare($sql);
+            $stmt->execute(['token'=>$token, 'email'=>$email]);
+
+            return true;
+        }
+
+        //Reset password user auth
+        public function resetAuth($email, $token){
+            $sql = 'SELECT id FROM users WHERE email = :email AND token = :token AND token != "" AND token_expire > NOW() AND deleted != 1';
+            $stmt = $this->con->prepare($sql);
+            $stmt->execute(['email'=>$email, 'token'=>$token]);
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $row;
+        }
+
+        // Update new password
+        public function newPassword($password, $email){
+            $sql = 'UPDATE users SET token = "", password = :password WHERE email = :email AND deleted != 1';
+            $stmt = $this->con->prepare($sql);
+            $stmt->execute(['password'=>$password, 'email'=>$email]);
+
+            return true;
+        }
     }
 ?>

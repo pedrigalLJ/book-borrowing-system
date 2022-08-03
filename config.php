@@ -1,5 +1,9 @@
 <?php 
     class Database{
+
+        const USERNAME = 'pedrigallarajane@gmail.com';
+        const PASSWORD = 'zzxgunxyotzulwxs';
+
         private $dsn = "mysql:host=localhost;dbname=book_borrowing_system_db";
         private $dbuser = "root";
         private $dbpass = "";

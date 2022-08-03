@@ -146,16 +146,17 @@
                         <h1 class="text-center font-weight-bold text-info">Forgot Password</h1>
                         <hr class="my-3">
                         <p class="lead text-center text-secondary">To reset your password, enter your email address.</p>
-                        <form action="#" method="post" class="px-3" id="login-form">
+                        <form action="#" method="post" class="px-3" id="forgot-form">
+                            <div id="reset-error-alert"></div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fas fa-envelope"></i></div>
                                 </div>
-                                <input type="text" id="reset-email" class="form-control" placeholder="Email">
+                                <input type="email" id="reset-email" name="reset-email" class="form-control" placeholder="Email" required>
                             </div>
                             <div class="clearfix"></div>
                             <div class="form-group">
-                                <input type="submit" value="Sign In" id="reset-btn" class="btn btn-info btn-block myBtn">
+                                <input type="submit" value="Reset Password" id="reset-btn" class="btn btn-info btn-block myBtn">
                             </div>
                         </form>
                     </div>
@@ -207,8 +208,8 @@
                             success: function(response){
                                 $("#register-btn").val('Sign Up');
                                 if(response === 'register'){
-                                    window.location = 'index.php';
-                                    alert("Registered successfully! Try to sign in!");
+                                    window.location = 'Borrower/home.php';
+                                    alert("Registered successfully!");
                                 }else{
                                     $("#reg-error-alert").html(response);
                                 }
@@ -235,6 +236,25 @@
                             }else{
                                 $("#login-error-alert").html(response);
                             }
+                        }
+                    });
+                }
+            });
+
+            //Forgot password ajax request
+             $("#reset-btn").click(function(e){
+                if($("#forgot-form")[0].checkValidity()){
+                    e.preventDefault();
+                    $("#reset-btn").val('Please Wait...');
+                    $.ajax({
+                        url: 'action.php',
+                        method: 'post',
+                        data: $("#forgot-form").serialize()+'&action=reset',
+                        success: function(response){
+                            $("#forgot-btn").val('Reset Password');
+                            $("#forgot-form")[0].reset();
+                            $("#reset-error-alert").html(response);
+                            
                         }
                     });
                 }

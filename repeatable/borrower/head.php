@@ -7,7 +7,7 @@
     <title><?php echo $user ?> | <?php echo $page; ?></title>
 
     <?php include '../repeatable/links.php' ?>
-    <link rel="stylesheet" href="../stylesheets/borrower/custom-style.css">
+    <link rel="stylesheet" href="../stylesheets/borrower/custom-style.css?v=1.0">
 
 </head>
 <body class="hold-transition layout-top-nav">

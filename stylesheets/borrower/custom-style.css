@@ -5,3 +5,14 @@
     box-sizing: border-box;
     font-family: 'Bree Serif', sans-serif;
 }
+.bbsText{
+    background: radial-gradient(circle farthest-corner at center center, #E98F97 0%, #127B8C 90%);
+    background-clip: border-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.profile-photo{
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+}

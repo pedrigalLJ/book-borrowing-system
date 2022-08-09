@@ -87,5 +87,14 @@
 
             return true;
         }
+
+        //Verify email 
+        public function verifyEmail($email){
+            $sql = 'UPDATE users SET verified = 1 WHERE email = :email AND deleted != 1';
+            $stmt= $this->con->prepare($sql);
+            $stmt->execute(['email'=>$email]);
+
+            return true;
+        }
     }
 ?>

@@ -84,7 +84,7 @@
 
                 $mail->isHTML(true);
                 $mail->Subject = 'Reset Password';
-                $mail->Body = '<h3>Click the link below to reset your password.<br><a href="http://localhost/book-borrowing-system/reset-password.php?email='.$email.'&token='.$token.'">http://localhost/book-borrowing-system/reset-password.php?email='.$email.'&token='.$token.'</a><br>Regards,<br>Book Borrowing System Staff!</h3>';
+                $mail->Body = '<h3>Click the link below to reset your password.<br><a href="http://localhost/book-borrowing-system/reset-password.php?email='.$email.'&token='.$token.'">http://localhost/book-borrowing-system/reset-password.php?email='.$email.'&token='.$token.'</a><br>Regards,<br>Admin</h3>';
 
                 $mail->send();
                 echo $user->showMessage('success', 'We have send you the reset link, please check your email!');

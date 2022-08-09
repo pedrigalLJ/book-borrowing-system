@@ -1,6 +1,14 @@
 <?php
     require_once 'session.php';
 
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
+    require 'vendor/autoload.php';
+
+    $mail = new PHPMailer(true);
+
     //Handle add book ajax request
     // if(isset($_POST['action']) && $_POST['action'] == 'add-book'){
     //     // print_r($_POST);
@@ -46,6 +54,31 @@
             }else{
                 echo $currentUser->showMessage('danger', 'Current password is wrong!');
             }
+        }
+    }
+
+    //Handle verify email ajax request
+    if(isset($_POST['action']) && $_POST['action'] == 'verify-email'){
+        try {
+            $mail->isSMTP();
+            $mail->Host = "smtp.gmail.com";
+            $mail->SMTPAuth = true;
+            $mail->Username = Database::USERNAME;
+            $mail->Password = Database::PASSWORD;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port = 465;
+
+            $mail->setFrom(Database::USERNAME, 'Book Borrowing System');
+            $mail->addAddress($currentEmail);
+
+            $mail->isHTML(true);
+            $mail->Subject = 'Email Verification';
+            $mail->Body = '<h3>Click the link below to verify your email.<br><a href="http://localhost/book-borrowing-system/verify-email.php?email='.$currentEmail.'">http://localhost/book-borrowing-system/verify-email.php?email='.$currentEmail.'</a><br>Regards,<br>Admin</h3>';
+
+            $mail->send();
+            echo $currentUser->showMessage('success', 'We have send you the verification link, please check your email!');
+        } catch (Exception $e) {
+            echo $currentUser->showMessage('danger', 'Something went wrong!'.$mail->ErrorInfo);
         }
     }
 ?>

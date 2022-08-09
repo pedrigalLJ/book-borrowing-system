@@ -43,6 +43,7 @@
 											<div class="card-header bg-primary">
 												<h3 class="card-title">About Me</h3>
 											</div>
+											<div id="verify-email-alert" class="container mt-2"></div>
 											<div class="card-body">
 												<strong><i class="fas fa-id-card mr-1"></i> <?php echo $currentName;  ?></strong>
 												<p class="text-muted">Name</p>
@@ -53,7 +54,7 @@
 												<strong><i class="fas fa-certificate mr-1"></i> 
 													<?php if($verified == 'Not Verified!'): ?>
 														<span class="text-danger">Not Verified!</span>
-														<a href="#" class="float-right font-weight-normal">Verify Now!</a>
+														<a href="#" id="verify-email-link" class="float-right font-weight-normal">Verify Now!</a>
 													<?php else: ?>
 														<span class="text-success">Verified!</span>
 													<?php endif; ?>
@@ -197,7 +198,23 @@
 						});
 					}
 				}
-			})
+			});
+
+			//Verify email ajax request
+			$("#verify-email-link").click(function(e){
+				e.preventDefault();
+				$(this).text('Please Wait...');
+
+				$.ajax({
+					url: '../process.php',
+					method: 'post',
+					data: { action: 'verify-email' },
+					success: function(response){
+						$("#verify-email-alert").html(response);
+						$("#verify-email").text('Verify Now!');
+					}
+				});
+			});
 		});
 	</script>
 

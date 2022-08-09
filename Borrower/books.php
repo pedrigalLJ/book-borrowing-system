@@ -1,9 +1,5 @@
 <?php
-	require_once '../session.php';
-	// echo '<pre>';
-	// print_r($data);
-	
-	$page = 'Home';
+	$page = 'Books';
 	
 	include '../repeatable/borrower/head.php';
 	include '../repeatable/pre-loader.php'; 

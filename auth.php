@@ -69,23 +69,5 @@
 
             return true;
         }
-
-        //Update profile 
-        public function updateProfile($name, $photo, $id){
-            $sql = 'UPDATE users SET fullname = :name, photo = :photo WHERE id = :id AND deleted != 1'; 
-            $stmt = $this->con->prepare($sql);
-            $stmt->execute(['name'=>$name, 'photo'=>$photo, ':id'=>$id]);
-
-            return true;
-        }
-
-        //Change password
-        public function changePassword($password, $id){
-            $sql = 'UPDATE users SET password = :password WHERE id = :id AND deleted != 1';
-            $stmt = $this->con->prepare($sql);
-            $stmt->execute(['password'=>$password, 'id'=>$id]);
-
-            return true;
-        }
     }
 ?>

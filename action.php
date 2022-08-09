@@ -26,6 +26,23 @@
             if($user->register($name, $email, $hashPass)){
                 echo 'register';
                 $_SESSION['user'] = $email;
+
+                $mail->isSMTP();
+                $mail->Host = "smtp.gmail.com";
+                $mail->SMTPAuth = true;
+                $mail->Username = Database::USERNAME;
+                $mail->Password = Database::PASSWORD;
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                $mail->Port = 465;
+
+                $mail->setFrom(Database::USERNAME, 'Book Borrowing System');
+                $mail->addAddress($email);
+
+                $mail->isHTML(true);
+                $mail->Subject = 'Email Verification';
+                $mail->Body = '<h3>Click the link below to verify your email.<br><a href="http://localhost/book-borrowing-system/verify-email.php?email='.$email.'">http://localhost/book-borrowing-system/verify-email.php?email='.$email.'</a><br>Regards,<br>Admin</h3>';
+
+                $mail->send();
             }else{
                 echo $user->showMessage('danger', 'Something went wrong! Try again later!');
             }
